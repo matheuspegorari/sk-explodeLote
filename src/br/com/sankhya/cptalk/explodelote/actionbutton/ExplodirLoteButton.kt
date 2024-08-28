@@ -52,7 +52,8 @@ class ExplodirLoteButton : AcaoRotinaJava {
                     lastSequencia = lastSequencia.add(BigDecimal.ONE)
                     criaLinhaProd(
                         nuNota,
-                        atualEstoque,
+                        atualEstoque.first,
+                        atualEstoque.second,
                         lastSequencia,
                         codProd,
                         produto.controle,
@@ -81,6 +82,7 @@ class ExplodirLoteButton : AcaoRotinaJava {
     private fun criaLinhaProd(
         nuNota: BigDecimal,
         atualEstoque: BigDecimal,
+        reserva: String,
         sequencia: BigDecimal,
         codProd: BigDecimal,
         controle: String,
@@ -92,6 +94,7 @@ class ExplodirLoteButton : AcaoRotinaJava {
         val item = JapeFactory.dao(DynamicEntityNames.ITEM_NOTA).create()
         item.set("NUNOTA", nuNota)
             .set("ATUALESTOQUE", atualEstoque)
+            .set("RESERVA", reserva)
             .set("SEQUENCIA", sequencia)
             .set("CODPROD", codProd)
             .set("CODLOCALORIG", codLocal)
