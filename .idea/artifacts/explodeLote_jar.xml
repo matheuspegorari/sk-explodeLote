@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="explodeLote:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/explodeLote_jar</output-path>
+    <root id="archive" name="explodeLote.jar">
+      <element id="module-output" name="explodeLote" />
+      <element id="directory" name="src">
+        <element id="module-source" name="explodeLote" />
+      </element>
+    </root>
+  </artifact>
+</component>
