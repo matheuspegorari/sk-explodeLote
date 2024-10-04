@@ -14,6 +14,17 @@ import java.math.BigDecimal
 
 class ExplodirLoteButton : AcaoRotinaJava {
     override fun doAction(ctx: ContextoAcao?) {
+        // TODO: Está com alguns problemas:
+        //  - Por excluir a ITE perde ligação com a TGFVAR
+        //  - O Recálculo de Impostos no método Refresh não recalcula o IPI
+        //  Ideias: Verificar se o setRecalculo = true recalcula o IPI. Se não,
+        //  tentar fazer o UPDATE e INSERT do registro atual, mantendo a ligação com a TGFVAR
+        //  para que o pedido não volte a ficar pendente.
+        //  PS.: Estamos falando de uma situação de VENDA.
+        //  Caso não seja possível verificar a possibilidade de
+        //  Executar essa função sempre antes de faturar.
+        //  Para que NO PEDIDO já venha com o lote e ao faturar
+        //  o sistema já leve
         var nuNota: BigDecimal? = null
         val linhas = ctx?.linhas
         if (linhas != null) {
@@ -111,6 +122,7 @@ class ExplodirLoteButton : AcaoRotinaJava {
     fun refresh(nuNota: BigDecimal?) {
         val impostosHelper = ImpostosHelpper()
         impostosHelper.carregarNota(nuNota)
+        // TODO: impostosHelper.setForcarRecalculo(true)
         impostosHelper.calcularImpostos(nuNota)
         impostosHelper.totalizarNota(nuNota)
         val cf = CentralFinanceiro()
